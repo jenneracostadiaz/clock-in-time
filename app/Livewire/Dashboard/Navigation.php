@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Dashboard;
 
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Navigation extends Component
@@ -11,7 +11,9 @@ class Navigation extends Component
 
     public function mount(): void
     {
-        $this->user = User::find(1);
+        $this->user = Auth::user();
+        //        dd($this->user);
+
     }
 
     public function render(): \Illuminate\View\View
