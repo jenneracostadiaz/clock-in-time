@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Tests\TestCase;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -11,9 +14,7 @@
 |
 */
 
-pest()->extend(Tests\TestCase::class)
- // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
-    ->in('Feature');
+pest()->extend(TestCase::class)->use(LazilyRefreshDatabase::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +27,7 @@ pest()->extend(Tests\TestCase::class)
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
+expect()->extend('toBeFortyTwo', fn () => $this->toBe(42));
 
 /*
 |--------------------------------------------------------------------------
