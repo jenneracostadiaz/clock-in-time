@@ -8,6 +8,7 @@
         "php": "^8.2",
         "devdojo/auth": "^1.0",
         "laravel/framework": "^11.23",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
