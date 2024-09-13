@@ -13,21 +13,14 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="antialiased font-sans">
-<div class="bg-gray-50">
-    <div class="relative min-h-screen flex flex-col justify-between items-start">
+<body class="antialiased font-sans bg-gray-50 relative min-h-screen flex flex-col justify-between items-start">
+<header class="w-full">
+    @livewire('dashboard.navigation')
+</header>
 
-        <header class="flex-1 w-full">
-            @livewire('dashboard.navigation')
-        </header>
-
-        <main class="w-11/12 max-w-screen-xl mx-auto">
-            @yield('content')
-        </main>
-
-
-    </div>
-</div>
+<main class="flex-1 w-11/12 max-w-screen-xl mx-auto my-6">
+    @yield('content')
+</main>
 </body>
 </html>
 
