@@ -12,14 +12,7 @@
         </div>
     </div>
 
-
-    {{-- <p class="text-slate-500 mt-12 text-center capitalize">
-    {{ $today }}
-    </p> --}}
-    {{-- wire today --}}
     <input wire:model="today" name="today" id="today"
            class="border-0 w-full text-center mt-8 bg-transparent capitalize text-slate-600 text-lg focus:ring-0"
            readonly>
-
-    {{-- wire check in --}}
 </div>
