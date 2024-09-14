@@ -15,3 +15,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('reports');
     });
 });
+
+Route::prefix('records')->as('records:')->group(
+    base_path('routes/resources/records.php')
+);
