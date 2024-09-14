@@ -12,8 +12,6 @@ class Navigation extends Component
     public function mount(): void
     {
         $this->user = Auth::user();
-        //        dd($this->user);
-
     }
 
     public function render(): \Illuminate\View\View
