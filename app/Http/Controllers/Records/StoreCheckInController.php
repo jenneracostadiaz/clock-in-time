@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Records;
 
 use App\Http\Controllers\Controller;
+use ClockInTime\Modules\Attendance\Data\NewCheckInRecord;
 use ClockInTime\Modules\Core\Enums\Http;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class StoreCheckInController extends Controller
@@ -12,12 +12,12 @@ class StoreCheckInController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(NewCheckInRecord $checkInRecord): Response
     {
-        $record = auth()->user()->attendances()->create(
-            $request->all()
+        $attendance = auth()->user()->attendances()->create(
+            $checkInRecord->toArray()
         );
 
-        return response(['attendance' => $record], Http::CREATED->value);
+        return response(['attendance' => $attendance], Http::CREATED->value);
     }
 }
