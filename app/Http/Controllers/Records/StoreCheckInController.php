@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Records;
 
 use App\Http\Controllers\Controller;
+use ClockInTime\Modules\Attendance\Data\AttendanceRecord;
 use ClockInTime\Modules\Attendance\Data\NewCheckInRecord;
 use ClockInTime\Modules\Core\Enums\Http;
 use Illuminate\Http\Response;
@@ -18,6 +19,8 @@ class StoreCheckInController extends Controller
             $checkInRecord->toArray()
         );
 
-        return response(['attendance' => $attendance], Http::CREATED->value);
+        $record = AttendanceRecord::from($attendance);
+
+        return response(['attendance' => $record], Http::CREATED->value);
     }
 }
