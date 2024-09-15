@@ -33,7 +33,7 @@ test('an authenticated user can check in his attendance entrance', function ($ch
     ],
 ]);
 
-test('an authenticated user can check out his attendance entrance', function ($checkOutRecord) {
+test('an authenticated user can check out his attendance exit', function ($checkOutRecord) {
     $this->withoutExceptionHandling();
     $user = User::factory()->create();
 
