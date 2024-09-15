@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Records;
+namespace App\Http\Controllers\Attendance;
 
 use App\Http\Controllers\Controller;
 use ClockInTime\Modules\Attendance\Data\NewCheckInRecord;
