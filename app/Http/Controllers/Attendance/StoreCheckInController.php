@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Attendance;
 
 use App\Http\Controllers\Controller;
+use ClockInTime\Modules\Attendance\Actions\CreateNewAttendanceRecord;
 use ClockInTime\Modules\Attendance\Data\NewCheckInRecord;
-use ClockInTime\Modules\Attendance\Services\AttendanceService;
 use ClockInTime\Modules\Core\Enums\Http;
 use Illuminate\Http\Response;
 
 class StoreCheckInController extends Controller
 {
     public function __construct(
-        public readonly AttendanceService $service
+        public readonly CreateNewAttendanceRecord $createNewAttendanceRecord
     ) {}
 
     /**
@@ -19,7 +19,10 @@ class StoreCheckInController extends Controller
      */
     public function __invoke(NewCheckInRecord $checkInRecord): Response
     {
-        $record = $this->service->checkIn();
+        $record = $this->createNewAttendanceRecord->handle(
+            user: auth()->user(),
+            checkInRecord: $checkInRecord
+        );
 
         return response(['attendance' => $record], Http::CREATED->value);
     }
