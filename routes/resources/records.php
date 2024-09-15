@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Records\StoreCheckInController;
-use App\Http\Controllers\Records\StoreCheckOutController;
+use App\Http\Controllers\Attendance\StoreCheckInController;
+use App\Http\Controllers\Attendance\StoreCheckOutController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
