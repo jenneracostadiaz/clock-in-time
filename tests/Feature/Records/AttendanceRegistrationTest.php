@@ -31,7 +31,7 @@ test('an authenticated user can check in his attendance entrance', function ($ch
         'check_in_time' => '2024-09-17 08:00:00',
         'status' => 'started',
     ],
-])->skip();
+]);
 
 test('an authenticated user can check out his attendance entrance', function ($checkOutRecord) {
     $this->withoutExceptionHandling();
