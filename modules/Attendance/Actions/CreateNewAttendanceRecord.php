@@ -6,7 +6,7 @@ use ClockInTime\Modules\Attendance\Data\AttendanceRecord;
 use ClockInTime\Modules\Attendance\Data\NewCheckInRecord;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-class CreateNewCheckInRecord
+class CreateNewAttendanceRecord
 {
     public function handle(Authenticatable $user, NewCheckInRecord $checkInRecord): AttendanceRecord
     {

@@ -3,7 +3,7 @@
 namespace ClockInTime\Modules\Attendance\Services;
 
 use Carbon\Carbon;
-use ClockInTime\Modules\Attendance\Actions\CreateNewCheckInRecord;
+use ClockInTime\Modules\Attendance\Actions\CreateNewAttendanceRecord;
 use ClockInTime\Modules\Attendance\Actions\UpdateAttendanceRecord;
 use ClockInTime\Modules\Attendance\Data\AttendanceRecord;
 use ClockInTime\Modules\Attendance\Data\NewCheckInRecord;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 final readonly class AttendanceService
 {
     public function __construct(
-        public CreateNewCheckInRecord $createNewCheckInRecord,
+        public CreateNewAttendanceRecord $createNewCheckInRecord,
         private UpdateAttendanceRecord $updateAttendanceRecord
     ) {}
 
