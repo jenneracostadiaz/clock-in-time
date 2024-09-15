@@ -8,7 +8,7 @@ use function Pest\Laravel\actingAs;
 test('an authenticated user can check in his attendance entrance', function ($checkInRecord) {
     $user = User::factory()->create();
 
-    $response = actingAs($user)->post('/records/check-in', [
+    $response = actingAs($user)->postJson('/records/check-in', [
         'attendance_date' => $checkInRecord->attendance_date,
         'check_in_time' => $checkInRecord->check_in_time,
         'status' => $checkInRecord->status,

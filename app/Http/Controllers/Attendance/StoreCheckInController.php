@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use ClockInTime\Modules\Attendance\Actions\CreateNewAttendanceRecord;
 use ClockInTime\Modules\Attendance\Data\NewCheckInRecord;
 use ClockInTime\Modules\Core\Enums\Http;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class StoreCheckInController extends Controller
 {
@@ -17,13 +17,13 @@ class StoreCheckInController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(NewCheckInRecord $checkInRecord): Response
+    public function __invoke(NewCheckInRecord $checkInRecord): JsonResponse
     {
         $record = $this->createNewAttendanceRecord->handle(
             user: auth()->user(),
             checkInRecord: $checkInRecord
         );
 
-        return response(['attendance' => $record], Http::CREATED->value);
+        return response()->json(['attendance' => $record], Http::CREATED->value);
     }
 }
