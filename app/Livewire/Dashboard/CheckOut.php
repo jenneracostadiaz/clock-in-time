@@ -41,9 +41,7 @@ class CheckOut extends Component
 
     private function startCounter(): void
     {
-        Carbon::setLocale('es', 'es_PE');
         $star_time = auth()->user()->attendances()->whereDate('check_in_time', Carbon::today())->first();
-        $end_time = Carbon::parse($star_time->check_in_time)->addHours(8);
         $this->initial_counter = Carbon::parse($star_time->check_in_time)->setTimezone('America/Lima')->format('H:i:s');
     }
 
