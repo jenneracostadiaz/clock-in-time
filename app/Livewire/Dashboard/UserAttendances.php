@@ -4,6 +4,8 @@ namespace App\Livewire\Dashboard;
 
 use Carbon\Carbon;
 use ClockInTime\Modules\Attendance\Services\AttendanceService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class UserAttendances extends Component
@@ -39,7 +41,7 @@ class UserAttendances extends Component
         $this->user_attendance = auth()->user()->attendances()?->whereDate('attendance_date', Carbon::today())->first();
     }
 
-    public function render(): \Illuminate\View\View
+    public function render(): View
     {
         return view('livewire.dashboard.user-attendances');
     }
@@ -89,7 +91,7 @@ class UserAttendances extends Component
         $this->dispatch('stopCounter');
     }
 
-    public function showResume()
+    public function showResume(): RedirectResponse
     {
         return redirect()->route('records:index');
     }
