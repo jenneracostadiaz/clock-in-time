@@ -3,6 +3,7 @@
         class="relative z-40 cursor-pointer open-checkout w-[330px] h-[330px] [&>div]:hover:rotate-45 [&>div>div]:hover:rotate-90 [&>div>div>div]:hover:rotate-45 [&>div]:focus:-rotate-45 [&>div>div]:focus:-rotate-90 [&>div>div>div]:focus:-rotate-45"
         @if($showButton === 'checkIn') wire:click="checkIn" @endif
         @if($showButton === 'checkOut') wire:click="checkOut" @endif
+        @if($showButton === 'resume') wire:click="showResume" @endif
     >
         <div
             id="bg-bottom"
