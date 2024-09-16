@@ -26,13 +26,16 @@ class UserAttendances extends Component
     public function mount(): void
     {
         $this->setUserAttendance();
-        if (! $this->attendance) {
+
+        if (! $this->hasNotAttendance()) {
             $this->registerCheckin();
         }
-        if ($this->attendance && ! $this->attendance->check_out_time) {
+
+        if ($this->isAttendanceStarted() && ! $this->isAttendanceEnded()) {
             $this->registerCheckout();
         }
-        if ($this->attendance && $this->attendance->check_out_time) {
+
+        if ($this->isAttendanceEnded()) {
             $this->registerResume();
         }
     }
@@ -40,6 +43,34 @@ class UserAttendances extends Component
     private function setUserAttendance(): void
     {
         $this->attendance = auth()->user()->attendances()?->whereDate('attendance_date', Carbon::today())->first();
+    }
+
+    private function hasAttendance(): bool
+    {
+        return ! $this->attendance;
+    }
+
+    private function hasNotAttendance(): bool
+    {
+        return ! $this->hasAttendance();
+    }
+
+    private function isAttendanceStarted(): bool
+    {
+        if (! $this->hasNotAttendance()) {
+            return false;
+        }
+
+        return ! is_null($this->attendance->check_in_time);
+    }
+
+    private function isAttendanceEnded(): bool
+    {
+        if (! $this->hasNotAttendance()) {
+            return false;
+        }
+
+        return ! is_null($this->attendance->check_out_time);
     }
 
     public function render(): View
