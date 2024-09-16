@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use ClockInTime\Modules\Attendance\Enums\AttendanceStatus;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -18,6 +17,7 @@ use Illuminate\Support\Carbon;
  * @property AttendanceStatus $status
  * @property-read Carbon $created_at
  * @property-read Carbon $updated_at
+ */
 class Attendance extends Model
 {
     use HasFactory;
