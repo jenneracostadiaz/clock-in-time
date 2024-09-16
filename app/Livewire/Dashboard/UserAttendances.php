@@ -21,13 +21,13 @@ class UserAttendances extends Component
 
     public string $showButton = '';
 
-    public string $initial_counter = '00:00:00';
+    public string $initial_counter = '';
 
     public function mount(): void
     {
         $this->setUserAttendance();
 
-        if (! $this->hasNotAttendance()) {
+        if (! $this->hasNotAttendance() && ! $this->isAttendanceStarted()) {
             $this->registerCheckin();
         }
 
