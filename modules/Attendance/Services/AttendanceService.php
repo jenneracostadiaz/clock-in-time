@@ -19,14 +19,18 @@ final readonly class AttendanceService
         private UpdateAttendanceRecord $updateAttendanceRecord
     ) {}
 
-    public function findAttendance(string $date): AttendanceRecord
+    public function findAttendance(string $date): ?AttendanceRecord
     {
-        $attendance = Auth::user()->attendances()->where('attendance_date', $date)->firstOrFail();
+        $attendance = Auth::user()->attendances()->where('attendance_date', $date)->first();
+
+        if (! $attendance) {
+            return null;
+        }
 
         return AttendanceRecord::from($attendance);
     }
 
-    public function checkIn(): AttendanceRecord
+    public function checkIn(): void
     {
         $checkInRecord = new NewCheckInRecord(
             Carbon::now()->format('Y-m-d'),
@@ -40,22 +44,24 @@ final readonly class AttendanceService
         );
 
         event(new AttendanceCheckInRegistered($attendance));
-
-        return $attendance;
     }
 
-    public function checkOut(): AttendanceRecord
+    public function checkOut(): void
     {
         $attendance = $this->findAttendance(
             date: Carbon::now()->format('Y-m-d')
         );
+
+        if (! $attendance) {
+            return;
+        }
 
         $checkOutRecord = new NewCheckOutRecord(
             check_out_time: Carbon::now(),
             status: AttendanceStatus::FINISHED
         );
 
-        return $this->updateAttendanceRecord->handle(
+        $this->updateAttendanceRecord->handle(
             id: $attendance->id,
             user: Auth::user(),
             checkOutRecord: $checkOutRecord
