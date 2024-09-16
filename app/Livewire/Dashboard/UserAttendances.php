@@ -2,32 +2,43 @@
 
 namespace App\Livewire\Dashboard;
 
-use App\Models\Attendance;
 use Carbon\Carbon;
 use ClockInTime\Modules\Attendance\Services\AttendanceService;
 use Livewire\Component;
 
 class UserAttendances extends Component
 {
+    public $main_time;
 
-    public $main_time, $up_title, $down_title, $showButton, $initial_counter, $user_attendance;
+    public $up_title;
+
+    public $down_title;
+
+    public $showButton;
+
+    public $initial_counter;
+
+    public $user_attendance;
+
     public function mount(): void
     {
         $this->setUserAttendance();
-        if(!$this->user_attendance){
+        if (! $this->user_attendance) {
             $this->registerCheckin();
         }
-        if($this->user_attendance && !$this->user_attendance->check_out_time){
+        if ($this->user_attendance && ! $this->user_attendance->check_out_time) {
             $this->registerCheckout();
         }
-        if($this->user_attendance && $this->user_attendance->check_out_time){
+        if ($this->user_attendance && $this->user_attendance->check_out_time) {
             $this->registerResume();
         }
     }
+
     private function setUserAttendance(): void
     {
         $this->user_attendance = auth()->user()->attendances()?->whereDate('attendance_date', Carbon::today())->first();
     }
+
     public function render(): \Illuminate\View\View
     {
         return view('livewire.dashboard.user-attendances');
@@ -82,5 +93,4 @@ class UserAttendances extends Component
     {
         return redirect()->route('records:index');
     }
-
 }
