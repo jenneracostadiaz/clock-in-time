@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard;
 
+use App\Models\Attendance;
 use Carbon\Carbon;
 use ClockInTime\Modules\Attendance\Services\AttendanceService;
 use Illuminate\Http\RedirectResponse;
@@ -10,17 +11,17 @@ use Livewire\Component;
 
 class UserAttendances extends Component
 {
-    public string $main_time;
+    private ?Attendance $user_attendance;
 
-    public string $up_title;
+    public string $main_time = '';
 
-    public string $down_title;
+    public string $up_title = '';
 
-    public string $showButton;
+    public string $down_title = '';
 
-    public string $initial_counter;
+    public string $showButton = '';
 
-    public $user_attendance;
+    public string $initial_counter = '00:00:00';
 
     public function mount(): void
     {
