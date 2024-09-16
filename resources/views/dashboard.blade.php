@@ -7,12 +7,11 @@
 
 @section('content')
     <section class="my-12 flex flex-col items-center">
-        <h1 class="text-4xl font-bold text-slate-700">Wecolme, {{ auth()?->user()->name  }} 👋</h1>
+        <h1 class="text-4xl font-bold text-slate-700">Welcome, {{ auth()?->user()->name  }} 👋</h1>
         <p class="font-light text-slate-500">don't forget to register your attendance</p>
     </section>
-    <section class="mx-auto w-full flex-col justify-center h-[330px]">
-        <livewire:dashboard.check-in />
-        <livewire:dashboard.check-out />
+    <section class="mx-auto relative w-full flex-col justify-center">
+        <livewire:dashboard.user-attendances />
     </section>
 
     <section class="my-12 flex flex-col items-center">
