@@ -10,15 +10,15 @@ use Livewire\Component;
 
 class UserAttendances extends Component
 {
-    public $main_time;
+    public string $main_time;
 
-    public $up_title;
+    public string $up_title;
 
-    public $down_title;
+    public string $down_title;
 
-    public $showButton;
+    public string $showButton;
 
-    public $initial_counter;
+    public string $initial_counter;
 
     public $user_attendance;
 
