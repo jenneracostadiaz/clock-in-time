@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Attendance;
 
+use App\Events\AttendanceCheckOutRegistered;
 use App\Http\Controllers\Controller;
 use ClockInTime\Modules\Attendance\Actions\UpdateAttendanceRecord;
 use ClockInTime\Modules\Attendance\Data\NewCheckOutRecord;
@@ -23,6 +24,8 @@ class StoreCheckOutController extends Controller
             user: auth()->user(),
             checkOutRecord: $checkOutRecord
         );
+
+        event(new AttendanceCheckOutRegistered($attendance));
 
         return response()->json([
             'attendance' => $attendance,

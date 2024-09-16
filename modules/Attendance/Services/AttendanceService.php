@@ -3,6 +3,7 @@
 namespace ClockInTime\Modules\Attendance\Services;
 
 use App\Events\AttendanceCheckInRegistered;
+use App\Events\AttendanceCheckOutRegistered;
 use Carbon\Carbon;
 use ClockInTime\Modules\Attendance\Actions\CreateNewAttendanceRecord;
 use ClockInTime\Modules\Attendance\Actions\UpdateAttendanceRecord;
@@ -61,10 +62,12 @@ final readonly class AttendanceService
             status: AttendanceStatus::FINISHED
         );
 
-        $this->updateAttendanceRecord->handle(
+        $attendance = $this->updateAttendanceRecord->handle(
             id: $attendance->id,
             user: Auth::user(),
             checkOutRecord: $checkOutRecord
         );
+
+        event(new AttendanceCheckOutRegistered($attendance));
     }
 }
