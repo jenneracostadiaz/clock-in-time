@@ -4,6 +4,7 @@ namespace App\Livewire\Dashboard;
 
 use App\Models\Attendance;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use ClockInTime\Modules\Attendance\Services\AttendanceService;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -72,6 +73,23 @@ class UserAttendances extends Component
         return ! is_null($this->attendance->check_out_time);
     }
 
+    private function getAttendanceCheckInTime(): Carbon
+    {
+        return $this->attendance->check_in_time->setTimezone('America/Lima');
+    }
+
+    private function getAttendanceCheckOutTime(): Carbon
+    {
+        return $this->attendance->check_out_time->setTimezone('America/Lima');
+    }
+
+    private function getAttendanceWorkTime(): CarbonInterval
+    {
+        return $this->attendance->check_in_time->diff(
+            $this->attendance->check_out_time
+        );
+    }
+
     public function render(): View
     {
         return view('livewire.dashboard.user-attendances');
@@ -100,7 +118,7 @@ class UserAttendances extends Component
     public function registerCheckout(): void
     {
         $this->setUserAttendance();
-        $this->initial_counter = $this->attendance->check_in_time->setTimezone('America/Lima')->format('H:i:s');
+        $this->initial_counter = $this->getAttendanceCheckInTime()->format('H:i:s');
         $this->up_title = 'Click to check out';
         $this->main_time = '';
         $this->down_title = 'Entrance: '.$this->initial_counter;
@@ -111,13 +129,11 @@ class UserAttendances extends Component
     public function registerResume(): void
     {
         $this->setUserAttendance();
-        $start_time = $this->attendance->check_in_time->setTimezone('America/Lima');
-        $end_time = $this->attendance->check_out_time->setTimezone('America/Lima');
         $this->up_title = 'Total hours worked';
-        $this->main_time = $this->attendance->check_in_time->diff($end_time)->format('%H:%I:%S');
+        $this->main_time = $this->getAttendanceWorkTime()->format('%H:%I:%S');
         $this->down_title = '
-            <p>Check in: '.$start_time->format('H:i:s').'</p>
-            <p>Check out: '.$end_time->format('H:i:s').'</p>
+            <p>Check in: '.$this->getAttendanceCheckInTime()->format('H:i:s').'</p>
+            <p>Check out: '.$this->getAttendanceCheckOutTime()->format('H:i:s').'</p>
         ';
         $this->showButton = 'resume';
         $this->dispatch('stopCounter');
