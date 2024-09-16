@@ -13,6 +13,7 @@
     <section class="mx-auto w-full flex-col justify-center h-[330px]">
         <livewire:dashboard.check-in />
         <livewire:dashboard.check-out />
+        <livewire:dashboard.resume-hours />
     </section>
 
     <section class="my-12 flex flex-col items-center">

@@ -1,7 +1,7 @@
 <div class="w-full flex flex-col items-center">
     @if($showingCheckOut)
         <button class="open-checkout relative w-[330px] h-[330px] [&>div]:hover:rotate-45 [&>div>div]:hover:rotate-90 [&>div>div>div]:hover:rotate-45 [&>div]:focus:-rotate-45 [&>div>div]:focus:-rotate-90 [&>div>div>div]:focus:-rotate-45"
-            {{--  wire:click="checkOut"--}}
+              wire:click="checkOut"
         >
             <div
                 id="bg-bottom"
@@ -18,7 +18,7 @@
             </div>
 
             <section class="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center text-white">
-                <input name="counter" id="counter" class="text-5xl pt-10 bg-transparent text-center border-0 ring-0 focus:ring-0" value="00:00:00" readonly />
+                <input name="counter" id="counter" class="cursor-pointer text-5xl pt-10 bg-transparent text-center border-0 ring-0 focus:ring-0" value="00:00:00" readonly />
                 <p>Click for check-out</p>
                 <p class="text-xs">Entrance: {{ $initial_counter }}</p>
             </section>

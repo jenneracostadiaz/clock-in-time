@@ -39,6 +39,14 @@ class CheckOut extends Component
         $this->startCounter();
     }
 
+    public function checkOut()
+    {
+//        dd('asdasdsda');
+//        $record = app(AttendanceService::class)->checkOut();
+        $this->dispatch('starResume');
+        $this->showingCheckOut = false;
+    }
+
     private function startCounter(): void
     {
         $star_time = auth()->user()->attendances()->whereDate('check_in_time', Carbon::today())->first();
