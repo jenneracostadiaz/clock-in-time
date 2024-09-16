@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\HtmlString;
 
 class AttendanceCheckOutRegistered extends Notification implements ShouldQueue
 {
@@ -35,9 +36,14 @@ class AttendanceCheckOutRegistered extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->subject('Attendance Check-Out Registered: Thank You!')
+            ->greeting("Dear $notifiable->name,")
+            ->line(new HtmlString("We're happy to inform you that your attendance check-out has been <b>successfully</b> recorded for today!"))
+            ->line(new HtmlString("Your check-out has been recorded at <b>{$this->attendance->check_out_time->format('H:i')}</b>."))
+            ->line('See you next time!')
+            ->action('View Attendance', route('records:index'))
+            ->line(new HtmlString('If you need to make any updates or have any questions, feel free to reach out to us at <a href="mailto:support@clockintime.com">support@clockintime.com</a>.'))
+            ->salutation(new HtmlString('Best Regards,<br>'.config('app.name')));
     }
 
     /**
