@@ -3,18 +3,20 @@
 namespace App\Livewire\Dashboard;
 
 use Carbon\Carbon;
-use ClockInTime\Modules\Attendance\Services\AttendanceService;
 use Livewire\Component;
 
 class CheckIn extends Component
 {
-    public string $today;
+    public $showingCheckIn = false;
+
+    protected $listeners = [
+        'showCheckIn' => 'showingCheckInOrder',
+        'hideCheckIn' => 'hideCheckInOrder',
+    ];
 
     public function mount(): void
     {
-        Carbon::setLocale('es');
-
-        $this->today = Carbon::now()->isoFormat('dddd D, MMM YYYY');
+        $this->showingCheckIn = false;
     }
 
     public function render()
@@ -22,12 +24,17 @@ class CheckIn extends Component
         return view('livewire.dashboard.check-in');
     }
 
+    public function showingCheckInOrder()
+    {
+        $this->showingCheckIn = true;
+    }
+    public function hideCheckInOrder()
+    {
+        $this->showingCheckIn = false;
+    }
+
     public function checkIn()
     {
-        // TODO: Move to CheckOut component
-        $record = app(AttendanceService::class)->checkIn();
-
-        // Emit event to CheckOut component
-        $this->emit('checkIn');
+        $this->dispatch('starCheckIn');
     }
 }
