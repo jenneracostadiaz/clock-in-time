@@ -112,11 +112,12 @@ class UserAttendances extends Component
     public function registerResume(): void
     {
         $this->setUserAttendance();
+        $start_time = $this->attendance->check_in_time->setTimezone('America/Lima');
         $end_time = $this->attendance->check_out_time->setTimezone('America/Lima');
         $this->up_title = 'Total hours worked';
         $this->main_time = $this->attendance->check_in_time->diff($end_time)->format('%H:%I:%S');
         $this->down_title = '
-            <p>Check in: '.$this->initial_counter.'</p>
+            <p>Check in: '.$start_time->format('H:i:s').'</p>
             <p>Check out: '.$end_time->format('H:i:s').'</p>
         ';
         $this->showButton = 'resume';
