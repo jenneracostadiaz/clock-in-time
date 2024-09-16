@@ -19,7 +19,7 @@ final readonly class AttendanceService
         private UpdateAttendanceRecord $updateAttendanceRecord
     ) {}
 
-    public function findAttendance(Carbon $date): AttendanceRecord
+    public function findAttendance(string $date): AttendanceRecord
     {
         $attendance = Auth::user()->attendances()->where('attendance_date', $date)->firstOrFail();
 
@@ -47,7 +47,7 @@ final readonly class AttendanceService
     public function checkOut(): AttendanceRecord
     {
         $attendance = $this->findAttendance(
-            Carbon::now()
+            date: Carbon::now()->format('Y-m-d')
         );
 
         $checkOutRecord = new NewCheckOutRecord(
