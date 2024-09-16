@@ -2,8 +2,9 @@
 
 namespace ClockInTime\Modules\Attendance\Services;
 
+use App\Events\AttendanceCheckInRegistered;
 use Carbon\Carbon;
-use ClockInTime\Modules\Attendance\Actions\CreateNewCheckInRecord;
+use ClockInTime\Modules\Attendance\Actions\CreateNewAttendanceRecord;
 use ClockInTime\Modules\Attendance\Actions\UpdateAttendanceRecord;
 use ClockInTime\Modules\Attendance\Data\AttendanceRecord;
 use ClockInTime\Modules\Attendance\Data\NewCheckInRecord;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 final readonly class AttendanceService
 {
     public function __construct(
-        public CreateNewCheckInRecord $createNewCheckInRecord,
+        public CreateNewAttendanceRecord $createNewCheckInRecord,
         private UpdateAttendanceRecord $updateAttendanceRecord
     ) {}
 
@@ -33,10 +34,14 @@ final readonly class AttendanceService
             AttendanceStatus::STARTED
         );
 
-        return $this->createNewCheckInRecord->handle(
+        $attendance = $this->createNewCheckInRecord->handle(
             user: Auth::user(),
             checkInRecord: $checkInRecord
         );
+
+        event(new AttendanceCheckInRegistered($attendance));
+
+        return $attendance;
     }
 
     public function checkOut(): AttendanceRecord
@@ -46,12 +51,12 @@ final readonly class AttendanceService
         );
 
         $checkOutRecord = new NewCheckOutRecord(
-            id: $attendance->id,
-            check_out_time: Carbon::now()->format('Y-m-d H:i:s'),
+            check_out_time: Carbon::now(),
             status: AttendanceStatus::FINISHED
         );
 
         return $this->updateAttendanceRecord->handle(
+            id: $attendance->id,
             user: Auth::user(),
             checkOutRecord: $checkOutRecord
         );

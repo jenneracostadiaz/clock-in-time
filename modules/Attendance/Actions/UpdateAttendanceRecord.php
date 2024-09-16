@@ -8,9 +8,9 @@ use Illuminate\Contracts\Auth\Authenticatable;
 
 class UpdateAttendanceRecord
 {
-    public function handle(Authenticatable $user, NewCheckOutRecord $checkOutRecord): AttendanceRecord
+    public function handle(int $id, Authenticatable $user, NewCheckOutRecord $checkOutRecord): AttendanceRecord
     {
-        $attendance = $user->attendances()->findOrFail($checkOutRecord->id);
+        $attendance = $user->attendances()->findOrFail($id);
 
         $attendance->update(
             array_merge($checkOutRecord->toArray(), ['attended' => true])

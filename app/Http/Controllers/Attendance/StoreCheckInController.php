@@ -2,25 +2,31 @@
 
 namespace App\Http\Controllers\Attendance;
 
+use App\Events\AttendanceCheckInRegistered;
 use App\Http\Controllers\Controller;
+use ClockInTime\Modules\Attendance\Actions\CreateNewAttendanceRecord;
 use ClockInTime\Modules\Attendance\Data\NewCheckInRecord;
-use ClockInTime\Modules\Attendance\Services\AttendanceService;
 use ClockInTime\Modules\Core\Enums\Http;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class StoreCheckInController extends Controller
 {
     public function __construct(
-        public readonly AttendanceService $service
+        public readonly CreateNewAttendanceRecord $createNewAttendanceRecord
     ) {}
 
     /**
      * Handle the incoming request.
      */
-    public function __invoke(NewCheckInRecord $checkInRecord): Response
+    public function __invoke(NewCheckInRecord $checkInRecord): JsonResponse
     {
-        $record = $this->service->checkIn();
+        $record = $this->createNewAttendanceRecord->handle(
+            user: auth()->user(),
+            checkInRecord: $checkInRecord
+        );
 
-        return response(['attendance' => $record], Http::CREATED->value);
+        event(new AttendanceCheckInRegistered($record));
+
+        return response()->json(['attendance' => $record], Http::CREATED->value);
     }
 }

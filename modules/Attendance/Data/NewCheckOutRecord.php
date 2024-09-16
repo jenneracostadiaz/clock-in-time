@@ -11,7 +11,6 @@ use Spatie\LaravelData\Data;
 class NewCheckOutRecord extends Data
 {
     public function __construct(
-        public readonly int $id,
         #[WithCast(DateTimeInterfaceCast::class, format: 'Y-m-d H:i:s')]
         public readonly Carbon|string $check_out_time,
         public readonly AttendanceStatus $status,

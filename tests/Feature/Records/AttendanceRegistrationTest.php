@@ -8,7 +8,7 @@ use function Pest\Laravel\actingAs;
 test('an authenticated user can check in his attendance entrance', function ($checkInRecord) {
     $user = User::factory()->create();
 
-    $response = actingAs($user)->post('/records/check-in', [
+    $response = actingAs($user)->postJson('/records/check-in', [
         'attendance_date' => $checkInRecord->attendance_date,
         'check_in_time' => $checkInRecord->check_in_time,
         'status' => $checkInRecord->status,
@@ -31,9 +31,9 @@ test('an authenticated user can check in his attendance entrance', function ($ch
         'check_in_time' => '2024-09-17 08:00:00',
         'status' => 'started',
     ],
-])->skip();
+]);
 
-test('an authenticated user can check out his attendance entrance', function ($checkOutRecord) {
+test('an authenticated user can check out his attendance exit', function ($checkOutRecord) {
     $this->withoutExceptionHandling();
     $user = User::factory()->create();
 
@@ -43,8 +43,7 @@ test('an authenticated user can check out his attendance entrance', function ($c
         'status' => $checkOutRecord->status,
     ]);
 
-    $response = actingAs($user)->patchJson('/records/check-out', [
-        'id' => $user->attendances->first()->id,
+    $response = actingAs($user)->patchJson('/records/check-out/'.$user->attendances->first()->id, [
         'check_out_time' => $checkOutRecord->check_out_time,
         'status' => $checkOutRecord->status,
     ]);
