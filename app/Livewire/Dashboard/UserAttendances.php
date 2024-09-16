@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class UserAttendances extends Component
 {
-    private ?Attendance $user_attendance;
+    private ?Attendance $attendance;
 
     public string $main_time = '';
 
@@ -26,20 +26,20 @@ class UserAttendances extends Component
     public function mount(): void
     {
         $this->setUserAttendance();
-        if (! $this->user_attendance) {
+        if (! $this->attendance) {
             $this->registerCheckin();
         }
-        if ($this->user_attendance && ! $this->user_attendance->check_out_time) {
+        if ($this->attendance && ! $this->attendance->check_out_time) {
             $this->registerCheckout();
         }
-        if ($this->user_attendance && $this->user_attendance->check_out_time) {
+        if ($this->attendance && $this->attendance->check_out_time) {
             $this->registerResume();
         }
     }
 
     private function setUserAttendance(): void
     {
-        $this->user_attendance = auth()->user()->attendances()?->whereDate('attendance_date', Carbon::today())->first();
+        $this->attendance = auth()->user()->attendances()?->whereDate('attendance_date', Carbon::today())->first();
     }
 
     public function render(): View
@@ -70,7 +70,7 @@ class UserAttendances extends Component
     public function registerCheckout(): void
     {
         $this->setUserAttendance();
-        $this->initial_counter = $this->user_attendance->check_in_time->setTimezone('America/Lima')->format('H:i:s');
+        $this->initial_counter = $this->attendance->check_in_time->setTimezone('America/Lima')->format('H:i:s');
         $this->up_title = 'Click to check out';
         $this->main_time = '';
         $this->down_title = 'Entrance: '.$this->initial_counter;
@@ -81,9 +81,9 @@ class UserAttendances extends Component
     public function registerResume(): void
     {
         $this->setUserAttendance();
-        $end_time = $this->user_attendance->check_out_time->setTimezone('America/Lima');
+        $end_time = $this->attendance->check_out_time->setTimezone('America/Lima');
         $this->up_title = 'Total hours worked';
-        $this->main_time = $this->user_attendance->check_in_time->diff($end_time)->format('%H:%I');
+        $this->main_time = $this->attendance->check_in_time->diff($end_time)->format('%H:%I');
         $this->down_title = '
             <p>Check in: '.$this->initial_counter.'</p>
             <p>Check out: '.$end_time->format('H:i:s').'</p>
