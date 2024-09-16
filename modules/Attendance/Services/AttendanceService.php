@@ -51,12 +51,12 @@ final readonly class AttendanceService
         );
 
         $checkOutRecord = new NewCheckOutRecord(
-            id: $attendance->id,
-            check_out_time: Carbon::now()->format('Y-m-d H:i:s'),
+            check_out_time: Carbon::now(),
             status: AttendanceStatus::FINISHED
         );
 
         return $this->updateAttendanceRecord->handle(
+            id: $attendance->id,
             user: Auth::user(),
             checkOutRecord: $checkOutRecord
         );
