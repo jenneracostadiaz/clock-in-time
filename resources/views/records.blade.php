@@ -29,7 +29,7 @@
                 @forelse($user_attendances as $attendance)
                     <tr class="odd:bg-white even:bg-gray-50 border-b">
                         <td class="px-6 py-4">
-                            {{ $attendance->created_at->format('d/m/Y') }}
+                            {{ $attendance->attendance_date->format('d/m/Y') }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $attendance->check_in_time->setTimezone('America/Lima')->format('H:i') }}
