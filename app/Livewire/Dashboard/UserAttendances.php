@@ -5,7 +5,6 @@ namespace App\Livewire\Dashboard;
 use App\Models\Attendance;
 use Carbon\Carbon;
 use ClockInTime\Modules\Attendance\Services\AttendanceService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -124,8 +123,8 @@ class UserAttendances extends Component
         $this->dispatch('stopCounter');
     }
 
-    public function showResume(): RedirectResponse
+    public function showResume(): void
     {
-        return redirect()->route('records:index');
+        $this->redirectRoute('records:index');
     }
 }
