@@ -43,8 +43,7 @@ test('an authenticated user can check out his attendance exit', function ($check
         'status' => $checkOutRecord->status,
     ]);
 
-    $response = actingAs($user)->patchJson('/records/check-out', [
-        'id' => $user->attendances->first()->id,
+    $response = actingAs($user)->patchJson('/records/check-out/'.$user->attendances->first()->id, [
         'check_out_time' => $checkOutRecord->check_out_time,
         'status' => $checkOutRecord->status,
     ]);

@@ -12,5 +12,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/check-in', StoreCheckInController::class)->name('check-in');
 
     // Register Attendance Exit
-    Route::patch('/check-out', StoreCheckOutController::class)->name('check-out');
+    Route::patch('/check-out/{attendance}', StoreCheckOutController::class)->name('check-out');
 });

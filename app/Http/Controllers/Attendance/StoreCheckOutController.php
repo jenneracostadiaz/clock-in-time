@@ -16,9 +16,10 @@ class StoreCheckOutController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(NewCheckOutRecord $checkOutRecord): JsonResponse
+    public function __invoke(int $id, NewCheckOutRecord $checkOutRecord): JsonResponse
     {
         $attendance = $this->updateAttendanceRecord->handle(
+            id: $id,
             user: auth()->user(),
             checkOutRecord: $checkOutRecord
         );
