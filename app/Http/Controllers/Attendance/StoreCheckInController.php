@@ -25,7 +25,9 @@ class StoreCheckInController extends Controller
             checkInRecord: $checkInRecord
         );
 
-        event(new AttendanceCheckInRegistered($record));
+        event(
+            new AttendanceCheckInRegistered($record)
+        );
 
         return response()->json(['attendance' => $record], Http::CREATED->value);
     }
