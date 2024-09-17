@@ -1,6 +1,6 @@
 <?php
 
-use App\Support\Host;
+use App\Support\Settings\Host;
 use Illuminate\Support\Str;
 
 return [
