@@ -11,17 +11,19 @@ use Livewire\Component;
 
 class UserAttendances extends Component
 {
+    const TIME_FORMAT = 'H:i:s';
+
     private ?Attendance $attendance;
 
-    public string $main_time = '';
+    public string $mainTime = '';
 
-    public string $up_title = '';
+    public string $upTitle = '';
 
-    public string $down_title = '';
+    public string $downTitle = '';
 
     public string $showButton = '';
 
-    public string $initial_counter = '';
+    public string $counter = '';
 
     public function mount(): void
     {
@@ -109,19 +111,19 @@ class UserAttendances extends Component
 
     public function registerCheckin(): void
     {
-        $this->up_title = 'Click to check in';
-        $this->main_time = '00:00:00';
-        $this->down_title = 'Register your attendance';
+        $this->upTitle = 'Click to check in';
+        $this->mainTime = '00:00:00';
+        $this->downTitle = 'Register your attendance';
         $this->showButton = 'checkIn';
     }
 
     public function registerCheckout(): void
     {
         $this->setUserAttendance();
-        $this->initial_counter = $this->getAttendanceCheckInTime()->format('H:i:s');
-        $this->up_title = 'Click to check out';
-        $this->main_time = '';
-        $this->down_title = 'Entrance: '.$this->initial_counter;
+        $this->counter = $this->getAttendanceCheckInTime()->format(self::TIME_FORMAT);
+        $this->upTitle = 'Click to check out';
+        $this->mainTime = '';
+        $this->downTitle = 'Entrance: '.$this->counter;
         $this->showButton = 'checkOut';
         $this->dispatch('startCounter');
     }
@@ -129,11 +131,11 @@ class UserAttendances extends Component
     public function registerResume(): void
     {
         $this->setUserAttendance();
-        $this->up_title = 'Total hours worked';
-        $this->main_time = $this->getAttendanceWorkTime()->format('%H:%I:%S');
-        $this->down_title = '
-            <p>Check in: '.$this->getAttendanceCheckInTime()->format('H:i:s').'</p>
-            <p>Check out: '.$this->getAttendanceCheckOutTime()->format('H:i:s').'</p>
+        $this->upTitle = 'Total hours worked';
+        $this->mainTime = $this->getAttendanceWorkTime()->format('%H:%I:%S');
+        $this->downTitle = '
+            <p>Check in: '.$this->getAttendanceCheckInTime()->format(self::TIME_FORMAT).'</p>
+            <p>Check out: '.$this->getAttendanceCheckOutTime()->format(self::TIME_FORMAT).'</p>
         ';
         $this->showButton = 'resume';
         $this->dispatch('stopCounter');
