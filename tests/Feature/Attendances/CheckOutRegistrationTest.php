@@ -6,7 +6,6 @@ use ClockInTime\Modules\Core\Enums\Http;
 use function Pest\Laravel\actingAs;
 
 test('an authenticated user can check out his attendance exit', function ($checkOutRecord) {
-    $this->withoutExceptionHandling();
     $user = User::factory()->create();
 
     $user->attendances()->create([
