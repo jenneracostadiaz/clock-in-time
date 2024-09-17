@@ -16,7 +16,7 @@ class DemoSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::factory()->first([
+        $user = User::factory()->create([
             'name' => 'Limber Jaimes',
             'email' => 'limber@clockintime.com',
             'password' => Hash::make('password'),
