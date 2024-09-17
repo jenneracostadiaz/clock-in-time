@@ -12,7 +12,7 @@ return [
     'enable_branding' => true,
     'dev_mode' => false,
     'enable_2fa' => false, // Enable or disable 2FA functionality globally
-    'login_show_social_providers' => true,
+    'login_show_social_providers' => false,
     'center_align_social_provider_button_content' => true,
     'social_providers_location' => 'bottom',
 ];
