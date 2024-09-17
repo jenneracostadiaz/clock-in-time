@@ -7,6 +7,7 @@ use App\Models\User;
 use ClockInTime\Modules\Attendance\Enums\AttendanceStatus;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class DemoSeeder extends Seeder
 {
@@ -15,7 +16,11 @@ class DemoSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::all()->first();
+        $user = User::factory()->first([
+            'name' => 'Limber Jaimes',
+            'email' => 'limber@clockintime.com',
+            'password' => Hash::make('password'),
+        ]);
 
         collect(range(100, 1))->each(
             fn ($days) => $this->createAttendances($user, $days)
