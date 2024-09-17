@@ -20,6 +20,11 @@
 <main class="flex-1 w-11/12 max-w-screen-xl mx-auto my-6">
     @yield('content')
 </main>
+
+<footer class="w-full bg-gray-50 text-gray-600 p-6 text-center">
+    <p>{{ config('app.name', 'Laravel') }} &copy; {{ date('Y') }} create with ❤️ by Leonid, Monassi & Jenner</p>
+</footer>
+
 </body>
 </html>
 
