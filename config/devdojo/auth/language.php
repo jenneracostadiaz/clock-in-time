@@ -3,13 +3,16 @@
 /*
  * Branding configs for your application
  */
+
+use App\Support\Settings\Translation;
+
 return [
     'login' => [
-        'page_title' => 'Sign in',
-        'headline' => 'Sign in',
+        'page_title' => Translation::SIGN_IN,
+        'headline' => Translation::SIGN_IN,
         'subheadline' => 'Login to your account below',
         'show_subheadline' => false,
-        'email_address' => 'Email Address',
+        'email_address' => Translation::EMAIL_ADDRESS,
         'password' => 'Password',
         'edit' => 'Edit',
         'button' => 'Continue',
@@ -25,11 +28,11 @@ return [
         'subheadline' => 'Register for your free account below.',
         'show_subheadline' => false,
         'name' => 'Name',
-        'email_address' => 'Email Address',
+        'email_address' => Translation::EMAIL_ADDRESS,
         'password' => 'Password',
-        'password_confirmation' => 'Confirm Password',
+        'password_confirmation' => Translation::CONFIRM_PASSWORD,
         'already_have_an_account' => 'Already have an account?',
-        'sign_in' => 'Sign in',
+        'sign_in' => Translation::SIGN_IN,
         'button' => 'Continue',
     ],
     'verify' => [
@@ -45,7 +48,7 @@ return [
     ],
     'passwordConfirm' => [
         'page_title' => 'Confirm Your Password',
-        'headline' => 'Confirm Password',
+        'headline' => Translation::CONFIRM_PASSWORD,
         'subheadline' => 'Be sure to confirm your password below',
         'show_subheadline' => false,
         'password' => 'Password',
@@ -56,7 +59,7 @@ return [
         'headline' => 'Reset password',
         'subheadline' => 'Enter your email below to reset your password',
         'show_subheadline' => false,
-        'email' => 'Email Address',
+        'email' => Translation::EMAIL_ADDRESS,
         'button' => 'Send password reset link',
         'or' => 'or',
         'return_to_login' => 'return to login',
@@ -66,9 +69,9 @@ return [
         'headline' => 'Reset Password',
         'subheadline' => 'Reset your password below',
         'show_subheadline' => false,
-        'email' => 'Email Address',
+        'email' => Translation::EMAIL_ADDRESS,
         'password' => 'Password',
-        'password_confirm' => 'Confirm Password',
+        'password_confirm' => Translation::CONFIRM_PASSWORD,
         'button' => 'Reset Password',
     ],
     'twoFactorChallenge' => [
