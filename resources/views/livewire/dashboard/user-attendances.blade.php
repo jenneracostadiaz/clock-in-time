@@ -10,7 +10,7 @@
         <section class="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center text-white">
             <p class="text-xs pt-4"> {{$up_title}}</p>
             <p>
-                <input wire:model="main_time" name="counter" id="counter" data-initial-counter="{{ $initial_counter }}" class="cursor-pointer text-5xl bg-transparent text-center border-0 ring-0 focus:ring-0" readonly />
+                <input wire:model="main_time" name="counter" id="counter" data-initial-counter="{{ $counter }}" class="cursor-pointer text-5xl bg-transparent text-center border-0 ring-0 focus:ring-0" readonly />
             </p>
             <p>{!! $down_title !!}</p>
         </section>

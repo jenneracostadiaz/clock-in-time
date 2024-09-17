@@ -21,7 +21,7 @@ class UserAttendances extends Component
 
     public string $showButton = '';
 
-    public string $initial_counter = '';
+    public string $counter = '';
 
     public function mount(): void
     {
@@ -118,10 +118,10 @@ class UserAttendances extends Component
     public function registerCheckout(): void
     {
         $this->setUserAttendance();
-        $this->initial_counter = $this->getAttendanceCheckInTime()->format('H:i:s');
+        $this->counter = $this->getAttendanceCheckInTime()->format('H:i:s');
         $this->up_title = 'Click to check out';
         $this->main_time = '';
-        $this->down_title = 'Entrance: '.$this->initial_counter;
+        $this->down_title = 'Entrance: '.$this->counter;
         $this->showButton = 'checkOut';
         $this->dispatch('startCounter');
     }
