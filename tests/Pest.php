@@ -39,8 +39,3 @@ expect()->extend('toBeFortyTwo', fn () => $this->toBe(42));
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
-
-function something()
-{
-    // ..
-}
