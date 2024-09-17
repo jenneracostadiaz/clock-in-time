@@ -11,6 +11,8 @@ use Livewire\Component;
 
 class UserAttendances extends Component
 {
+    const TIME_FORMAT = 'H:i:s';
+
     private ?Attendance $attendance;
 
     public string $mainTime = '';
@@ -118,7 +120,7 @@ class UserAttendances extends Component
     public function registerCheckout(): void
     {
         $this->setUserAttendance();
-        $this->counter = $this->getAttendanceCheckInTime()->format('H:i:s');
+        $this->counter = $this->getAttendanceCheckInTime()->format(self::TIME_FORMAT);
         $this->upTitle = 'Click to check out';
         $this->mainTime = '';
         $this->downTitle = 'Entrance: '.$this->counter;
@@ -132,8 +134,8 @@ class UserAttendances extends Component
         $this->upTitle = 'Total hours worked';
         $this->mainTime = $this->getAttendanceWorkTime()->format('%H:%I:%S');
         $this->downTitle = '
-            <p>Check in: '.$this->getAttendanceCheckInTime()->format('H:i:s').'</p>
-            <p>Check out: '.$this->getAttendanceCheckOutTime()->format('H:i:s').'</p>
+            <p>Check in: '.$this->getAttendanceCheckInTime()->format(self::TIME_FORMAT).'</p>
+            <p>Check out: '.$this->getAttendanceCheckOutTime()->format(self::TIME_FORMAT).'</p>
         ';
         $this->showButton = 'resume';
         $this->dispatch('stopCounter');
